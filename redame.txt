@@ -1,0 +1,23 @@
+这个小例子是我在myonessmcache的基础上改的把java自带的缓存换成了redis，redis直接和mybatis整合，其实在正式
+项目中应该是和spring整合，在这只是抛砖引玉，我什么时候有时间再把那个弄上来吧同时在整合的过程中遇到了个问题，就是
+在实际项目中用synchronized还是用RedadWriteLock来防止用户大的访问量的时候对缓存的穿透，比较困惑，希望有大神帮我
+解答一下，在这谢谢了；在这说明一下我的这个小例子是仿照贴吧（http://tieba.baidu.com/p/4144161205）写的，如果
+有侵权的地方希望和我联系（git帐号就是我的qq号），我好处理；代码的话关于redis的代码我没有改
+代码里面我都写了注释的，在这我就不重复了（为我以后的东西腾点地方）
+主要有几个地方提一下
+第一个是sqlMapConfig.xml中要加上
+ <!-- 开启二级缓存 -->
+ <settings>
+<!-- 开启延迟加载 -->
+<!-- <setting name="LazyLoadingEnabled" value="true"/> -->
+<!-- 将积极加载改为消极加载既按需加载 -->
+<!-- <setting name="aggressiveLazyLoading" value="false"/> -->
+<!-- 开启二级缓存 -->
+<setting name="cacheEnabled" value="true"/>
+</settings>
+开启二级缓存
+第二个地方是在Mapper中要加上
+<!--  开启二级缓存-->
+	<cache eviction="LRU" type="hxk.dao.redis.LoggingRedisCache"/>
+	和useCache="true"
+一个是这个Mapper是否启用缓存另一个是该sql是否启用缓存

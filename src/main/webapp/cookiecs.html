@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+</head>
+ <script type="text/javascript">
+ $(function(){
+  var aa=$.cookie("cookievalue");
+  if(aa.length==4){
+	  alert("cookie为空");
+  }else{
+	  alert(aa.length);
+  }
+ });
+ function setCookie(){
+	 var cookiecsval=$("#cookiecs").val();
+	 $.cookie("cookievalue",cookiecsval);
+ }
+ function delCookie(){
+	 $.cookie('cookievalue',null);
+ }
+ </script>
+<body>
+<input type="text" name="cookiecs" id="cookiecs">
+<input type="button" onclick="setCookie()" name="but" id="but" value="创建cookie">
+<input type="button" onclick="delCookie()" name="butt" id="butt" value="删除cookie">
+</body>
+</html>

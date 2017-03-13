@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 使用动态代理 -->
+<mapper namespace="cn.ssm.mapper.UsrtableMapperCustom" >
+<!-- 定义商品查询的sql片段 -->
+<sql id="query_usertable_where">
+<!-- 使用动态sql，通过if判断，满足条件进行sql拼接 -->
+<!-- 商品查询条件通过ItemsQueryVo包装对象中itemsCustom属性传递 -->
+<if test="usertablecustom!=null">
+<if test="usertablecustom.username!=null and usertablecustom.username!=''">
+usertable.username=#{usertablecustom.username} and usertable.userpwd=#{usertablecustom.userpwd}
+</if>
+</if>
+</sql>
+
+<!-- 商品列表查询 传入包装对象输出扩展对象-->
+<select id="finduser" parameterType="cn.ssm.po.UsertableVo" resultType="cn.ssm.po.UsertableCustom">
+select * from usertable 
+ <where>
+<include refid="query_usertable_where"></include>
+</where>
+</select>
+</mapper>

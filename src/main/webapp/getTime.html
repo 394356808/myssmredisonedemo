@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <link type="text/css" href="css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-timepicker-zh-CN.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        $(".ui_timepicker").datetimepicker({
+            //showOn: "button",
+            //buttonImage: "./css/images/icon_calendar.gif",
+            //buttonImageOnly: true,
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+    });
+    function autoSubmit(){
+    	var time=$("input[name='datetime']").val()
+    	var time2=$("input[name='datetime2']").val();
+        var startTime=getDate(time);
+        var start = "2012-3-25";
+        var end = "2012-4-3";
+        var endTime=getDate(time2);
+        //var startTime = getDate(start);
+        //var endTime = getDate(end);
+        while((endTime.getTime()-startTime.getTime())>=0){
+        	  var year = startTime.getFullYear();
+        	  var month = startTime.getMonth().toString().length==1?"0"+startTime.getMonth().toString():startTime.getMonth();
+        	  //var month=startTime.getMonth()+1;
+        	  if(parseInt(month)==0){
+        		  month=12;
+        		  year=year-1;
+        	  }
+        	  var day = startTime.getDate().toString().length==1?"0"+startTime.getDate():startTime.getDate();
+        	  alert(year+"-"+month+"-"+day);
+        	  startTime.setDate(startTime.getDate()+1);
+        	}
+    	alert(startTime);
+    	alert(time2);
+    }
+    function getDate(datestr){
+    	//alert(datestr);
+    	var datestr1=datestr.substr(0,11);
+    	
+    	var temp=datestr1.split("-");
+    	var date=new Date(temp[0],temp[1],temp[2]);
+    	return date;
+    }
+    </script>
+</head>
+<body>
+<form method="post" name="form1" id="from1" action="ads">
+<input type="text" name="datetime" class="ui_timepicker" value="">
+<input type="text" name="datetime2" class="ui_timepicker" value="">
+<input type="button" onclick="autoSubmit();" value="提交">
+</form>
+</body>
+</html>
